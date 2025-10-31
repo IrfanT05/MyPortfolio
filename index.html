@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Irfan Talukder — Portfolio</title>
+  <meta name="description" content="Portfolio of Irfan Talukder — Computer Science, AI/ML, REST APIs, data pipelines, systems integration, Flutter, and university projects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root{
+      --bg:#89CFF0 ;            /* rich purple */
+      --cream:#fffaf2;         /* soft cream card */
+      --cream-border:#efe5d6;  /* subtle border */
+      --text-dark:#191b20;     /* text inside cream cards */
+      --text-light:#f6f6f9;    /* text on purple */
+      --muted-dark:#5b6270;    /* muted on cream */
+      --muted-light:#d6d6e4;   /* muted on purple */
+      --brand:#4aa3ff;         /* accent */
+      --brand-2:#7ef0c4;       /* secondary accent */
+      --radius:20px;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --shadow-soft:0 6px 18px rgba(0,0,0,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text-light);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    a{color:#5f5f60;text-decoration:none}
+    a:hover{opacity:.9}
+    
+    section.card, .pane, .hero-card {
+  border-radius: 16px;
+}
+
+    /* Global fade */
+    body{opacity:0;animation:fadeIn .6s ease-out forwards}
+    @keyframes fadeIn{from{opacity:0;filter:saturate(.9) blur(.4px)}to{opacity:1;filter:none}}
+    .fade-up{opacity:0;transform:translateY(10px);animation:fadeUp .6s ease-out .1s forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+
+    /* Full-width header + footer */
+    header{position:sticky;top:0;z-index:60;background:var(--cream);border-bottom:1px solid var(--cream-border);box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);backdrop-filter: blur(8px);;}
+    .nav{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;color:var(--text-dark)}
+    .brand{font-weight:700;color:var(--text-dark)}
+    .nav-links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .nav a{color:var(--text-dark)}
+    .icon-link{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;background:#fff;border:1px solid var(--cream-border);color:var(--text-dark)}
+    .btn,
+.link,
+.filter,
+.icon-link {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+  transform: translateY(0) scale(1);
+  will-change: transform;
+}
+.btn:hover,
+.link:hover,
+.filter:hover,
+.icon-link:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+.btn:active,
+.link:active,
+.filter:active,
+.icon-link:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.btn:focus-visible,
+.link:focus-visible,
+.filter:focus-visible,
+.icon-link:focus-visible {
+  outline: 3px solid rgba(74,163,255,0.35);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+.btn.primary:hover {
+  box-shadow: 0 10px 24px rgba(78,203,255,0.35);
+}
+.filter {
+  cursor: pointer;
+}
+.icon-link:hover {
+  background: #fff;
+  opacity: 0.95;
+}
+    .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--cream-border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text-dark);
+  transition: all 0.25s ease;   /* smooth animation */
+  transform: scale(1);
+}
+    .btn:hover {
+      transform: scale(1.06);       /* slightly larger on hover */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);  /* add depth */
+    }
+
+    .btn.primary:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(78, 203, 255, 0.4); /* soft blue-green glow */
+}
+.btn:not(.primary):hover {
+  background: #f5f5f5;
+}
+/* Header nav link hover effect */
+header nav a {
+  position: relative;
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+/* subtle color change */
+header nav a:hover {
+  color: var(--brand);
+}
+
+/* animated underline */
+header nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #4da3ff, #77f3c6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+    .btn.primary{border-color:transparent;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#081a1a;font-weight:700}
+
+
+    /* Container for section cards */
+    .container{max-width:1280px;margin:0 auto;padding:28px 40px 80px}
+
+    /* Hero (on purple background) */
+    .hero{display:grid;grid-template-columns:310px 1fr;gap:8px;align-items:stretch;padding:28px 0}
+    .portrait{width:230px;height:300px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);background:#210c3b;border:1px solid rgba(255,255,255,.08)}
+    .portrait img{width:100%;height:100%;object-fit:cover}
+    .hero-card{background:var(--cream);color:var(--text-dark);border:1px solid var(--cream-border);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    h1{font-size:40px;line-height:1.1;margin:8px 0 12px;color:var(--text-dark)}
+    .subtitle{color:var(--muted-dark);font-size:18px;line-height:1.55}
+    .hero-cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+    .hero-card{
+      background: var(--cream);
+  color: var(--text-dark);
+  border: 1px solid var(--cream-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+
+  display: flex;                 /* activate flexbox */
+  flex-direction: column;        /* stack elements vertically */
+  justify-content: space-between;/* spread elements evenly */
+  height: 100%;                  /* match portrait height */
+  margin: 0;
+    }
+    .hero img {
+  display: block;
+  margin: 0;       /* remove accidental margins */
+}
+.hero {
+  gap: 0;
+}
+.hero-card {
+  margin-left: -4px;   /* overlap just a little */
+}
+
+    /* Section cards */
+    section.card{background:var(--cream);color:var(--text-dark);border:1px solid var(--cream-border);border-radius:var(--radius);box-shadow:var(--shadow-soft);margin-top:32px}
+    
+
+    /* About + Highlights layout */
+    #about .grid{
+      display:grid;
+      align-items:stretch;
+      grid-template-columns:1fr 1fr;
+      gap:24px}
+    .pane{padding:0}
+    .pane header{padding:18px 20px;border-bottom:1px solid var(--cream-border)}
+    .pane .title{font-weight:700}
+    .pane .sub{color:var(--muted-dark);margin-top:4px}
+    .pane .body{padding:20px 24px 24px}
+    .pane {
+  background: var(--cream);
+  border: 1px solid var(--cream-border);
+  border-radius: 20px;      /* <- Rounded corners */
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;         /* Makes sure content respects the border radius */
+  
+}
+.hl-list {
+  list-style: none;         
+  margin: 0;
+  padding: 14px 20px 20px 20px;
+  display: grid;
+  gap: 14px;
+}
+.hl {
+  display: flex;
+  align-items: flex-start;  /* keeps icon aligned with text */
+  gap: 10px;                /* spacing between icon & text */
+}
+
+.hl .dot {
+  flex-shrink: 0;           /* stops icon from resizing */
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffe9d6;
+  color: #9c3d00;
+  font-size: 14px;
+  border: 1px solid var(--cream-border);
+  margin-top: 20px;          /* small vertical offset looks natural */
+}
+
+    /* Tech stack chips */
+    .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .chip{padding:8px 12px;border:1px solid var(--cream-border);border-radius:999px;background:#fff;color:var(--text-dark);font-size:13px}
+
+    /* Projects */
+    #projects .inner{padding:18px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+    .section-head h2{margin:0;font-size:26px;color:var(--text-dark)}
+    .muted{color:var(--muted-dark)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .filter{padding:8px 12px;border:1px solid var(--cream-border);border-radius:10px;background:#fff;cursor:pointer;font-size:13px;color:var(--text-dark)}
+    .filter.active{border-color:transparent;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#001b20;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .p-card{background:#fff;border:1px solid var(--cream-border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+    .p-card .meta{display:flex;justify-content:space-between;color:var(--muted-dark);font-size:12px}
+    .p-card h3{margin:0;font-size:18px;color:var(--text-dark)}
+    .p-card .muted{color:var(--muted-dark)}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--cream-border);color:var(--text-dark)}
+    .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+    .link{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--cream-border);border-radius:10px;background:#fff;color:var(--text-dark)}
+
+    /* Skills */
+    #skills .inner{padding:18px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}
+    .chip-soft{background:#fff}
+    /* Skills: Mahzabeen-style */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.btn.gradient {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  border: none;
+  color: #081a1a;
+  font-weight: 600;
+}
+
+
+.skill-card{
+  background:#fff;
+  border:1px solid var(--cream-border);
+  border-radius:14px;
+  padding:16px 18px;
+}
+
+.skill-card h3{
+  margin:0 0 10px 0;
+  color:var(--text-dark);
+  font-size:16px;
+}
+
+.skill-card ul{
+  list-style:none;        /* no default dots */
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:8px;
+  color:var(--text-dark);
+}
+
+.skill-card li{
+  display:flex;
+  gap:10px;               /* icon ↔ text */
+  align-items:flex-start;
+  line-height:1.35;
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .skills-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 600px){
+  .skills-grid{ grid-template-columns:1fr; }
+}
+
+
+    /* Experience */
+    #experience .inner{padding:18px}
+    .timeline{display:grid;gap:14px}
+    .item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:16px;border:1px dashed var(--cream-border);border-radius:14px;background:#fff}
+    .item .where{font-weight:600;color:var(--text-dark)}
+    .item .when{color:var(--muted-dark)}
+
+    /* Contact */
+    #contact .inner{padding:18px}
+    #contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    #contact .pane{background:#fff;border:1px solid var(--cream-border);border-radius:14px;padding:18px}
+    /* Contact section adjustments */
+.contact-full {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--cream-border);
+  border-radius: 20px;
+  padding: 48px 56px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Typography and spacing */
+.contact-full h3 {
+  font-size: 24px;
+  margin-bottom: 28px;    /* bigger space below heading */
+  color: var(--text-dark);
+}
+
+/* Each contact line */
+.contact-full p {
+  display: flex;
+  align-items: center;
+  gap: 16px;              /* space between icon/text/button */
+  font-size: 17px;
+  color: var(--text-dark);
+  margin: 22px 0;         /* space between each line */
+}
+
+/* Icons */
+.contact-full svg {
+  flex-shrink: 0;
+  color: var(--brand);
+  transition: transform 0.25s ease;
+  width: 22px;
+  height: 22px;
+}
+
+/* Hover interaction */
+.contact-full p:hover svg {
+  transform: scale(1.15);
+}
+
+/* Links */
+.contact-full a {
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.contact-full a:hover {
+  color: var(--brand);
+}
+/* Contact section adjustments */
+.contact-full {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--cream-border);
+  border-radius: 20px;
+  padding: 48px 56px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Typography and spacing */
+.contact-full h3 {
+  font-size: 24px;
+  margin-bottom: 28px;    /* bigger space below heading */
+  color: var(--text-dark);
+}
+
+/* Each contact line */
+.contact-full p {
+  display: flex;
+  align-items: center;
+  gap: 16px;              /* space between icon/text/button */
+  font-size: 17px;
+  color: var(--text-dark);
+  margin: 22px 0;         /* space between each line */
+}
+
+/* Icons */
+.contact-full svg {
+  flex-shrink: 0;
+  color: var(--brand);
+  transition: transform 0.25s ease;
+  width: 22px;
+  height: 22px;
+}
+
+/* Hover interaction */
+.contact-full p:hover svg {
+  transform: scale(1.15);
+}
+
+/* Links */
+.contact-full a {
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.contact-full a:hover {
+  color: var(--brand);
+}
+/* 1) Kill any spacing between photo and tile */
+.hero{
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0 !important;              /* <- no space */
+  column-gap: 0 !important;
+}
+
+/* 2) Ensure neither side adds its own margin */
+.portrait{ margin: 0 !important; }
+.hero-card{ margin: 0 !important; }
+
+/* 3) (Optional) create a tiny overlap for a seamless look */
+.hero-card{ margin-left: -6px; }   /* tweak -2 to -8px to taste */
+
+/* 4) If the container has inner padding that shows between them */
+.container{ padding-left: 20px; padding-right: 20px; }  /* keep, but not relevant to the seam */
+
+
+
+    /* Footer full-width */
+    footer{margin-top:32px;background:var(--cream);border-top:1px solid var(--cream-border);color:var(--text-dark)}
+    .foot-inner{max-width:1120px;margin:0 auto;padding:16px 20px;text-align:center}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .hero{grid-template-columns:240px 1fr}
+    }
+    @media (max-width: 900px){
+      #about .grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .hero{grid-template-columns:1fr}
+      .portrait{margin:0 auto}
+      .grid{grid-template-columns:1fr}
+      #contact .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- FULL-WIDTH HEADER -->
+  <header>
+    <nav class="nav">
+      <div class="brand">Irfan Talukder</div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a class="icon-link" href="https://github.com/irfantalukder" target="_blank" rel="noopener" aria-label="GitHub">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.83 1.31 3.52 1 .11-.79.42-1.31.76-1.61-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.31-.54-1.57.12-3.27 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.7.25 2.96.12 3.27.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.61-5.49 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/>
+  </svg>
+</a>
+        <a class="icon-link" href="https://www.linkedin.com/in/irfantalukder" target="_blank" rel="noopener" aria-label="LinkedIn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/>
+  </svg>
+</a>
+        <a class="btn gradient" href="#" id="downloadCV">Download CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- HERO (portrait left, text right) -->
+    <section class="hero">
+      <div class="fade-up">
+        <div class="portrait" aria-label="Portrait">
+          <img src="PortfolioImage.jpg" alt="Portrait of Irfan Talukder"/>
+        </div>
+      </div>
+
+      <div class="hero-card fade-up" style="animation-delay:.05s">
+        <span class="kicker" style="color:var(--muted-dark);letter-spacing:.3em;text-transform:uppercase;font-size:12px">prospective Computer Science graduate (2026)</span>
+        <h1>Hi, I'm Irfan Talukder</h1>
+        <p class="subtitle">A Final‑year BSc Computer Science (MMU) focused on AI/ML and data integration. I love turning messy systems into clean, testable solutions — with a touch of experimentation.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT + HIGHLIGHTS (cream cards) -->
+    <section id="about" class="card fade-up">
+      <div class="grid">
+        <article class="pane">
+          <header>
+            <div class="title">💼 What I Do</div>
+            <div class="sub">Building reliable, integrated systems across mobile, web, and backend platforms.</div>
+          </header>
+          <div class="body">
+            <p>I am a Computer Science undergraduate experienced in developing and deploying <strong>mobile</strong>, <strong>web</strong>, and <strong>backend systems</strong>. Skilled in <strong>Flutter</strong>, <strong>Python</strong>, and <strong>C#/.NET</strong>, with practical experience designing and consuming <strong>REST</strong> and <strong>RESTful APIs</strong> across academic and personal projects. My work focuses on seamless data handling, integration, and efficient backend communication.</p>
+            <p style="margin-top:14px">At <strong>Manchester Metropolitan University</strong>, I contributed to full‑stack web apps such as a <strong>Room Finder</strong> built with HTML/CSS/JavaScript, and backend services that connect, fetch, and process data via RESTful APIs. I’ve also prototyped AI‑assisted integration pipelines to improve migration accuracy and reliability.</p>
+            <p style="margin-top:14px">Beyond development, I provide technical support as an <strong>IT Rover</strong>, resolving network, hardware, and software incidents via <strong>Freshservice</strong>. I also mentor first‑year Computer Science students, focusing on logical design (e.g., <strong>Logisim Evolution</strong>), problem‑solving, and foundational CS concepts.</p>
+
+            
+          </div>
+        </article>
+
+        <aside class="pane">
+          <header>
+            <div class="title">🌟 Highlights</div>
+          </header>
+          <ul class="hl-list">
+            <li class="hl"><span class="dot">📱</span><p>Developed and deployed a cross‑platform mobile application using <strong>Flutter</strong>, integrating RESTful APIs and offline features.</p></li>
+            <li class="hl"><span class="dot">💻</span><p>Resolved 100+ IT tickets as an <strong>MMU IT Rover</strong>, troubleshooting network, hardware, and software issues via <strong>Freshservice</strong>.</p></li>
+            <li class="hl"><span class="dot">🌐</span><p>Collaborated on a <strong>Room Finder</strong> tool (HTML/CSS/JavaScript) supporting campus navigation and user experience.</p></li>
+            <li class="hl"><span class="dot">🧑‍🏫</span><p>Mentored first‑year students in Computer Science modules, including <strong>Logisim Evolution</strong> and data structures.</p></li>
+            <li class="hl"><span class="dot">🎨</span><p>Collaborated on a website <strong>StarKow</strong> — a greeting‑card web app with custom templates and local storage.</p></li>
+            <li class="hl"><span class="dot">🔗</span><p>Prototyped data integration demos in <strong>Python</strong> and <strong>C#</strong> for AI‑assisted migration workflows.</p></li>
+            <li class="hl"><span class="dot">🤝</span><p>Delivered peer guidance and digital literacy support for 100+ students through MMU engagement.</p></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SKILLS (cream) -->
+    <section id="skills" class="card fade-up">
+  <div class="inner">
+    <div class="section-head"><h2>Skills</h2></div>
+
+    <div class="skills-grid">
+      <article class="skill-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>🐍 Python</li>
+          <li>🧱 C# / .NET</li>
+          <li>🧩 Dart (Flutter)</li>
+          <li>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 128 128">
+    <path fill="#7F52FF" d="M0 0h128L64 64l64 64H0z"/>
+  </svg>
+  Kotlin
+</li>
+          <li>🕸️ HTML · CSS · JavaScript</li>
+          <li>🗃️ SQL</li>
+        </ul>
+      </article>
+
+      <article class="skill-card">
+        <h3>Frameworks & APIs</h3>
+        <ul>
+          <li>🔗 REST / RESTful APIs</li>
+          <li>🧪 xUnit · pytest</li>
+          <li>📦 ASP.NET Core minimal APIs</li>
+          <li>📱 Flutter (state mgmt, offline)</li>
+        </ul>
+      </article>
+
+      <article class="skill-card">
+        <h3>Cloud & DevOps</h3>
+        <ul>
+          <li>🐳 Docker</li>
+          <li>☁️ Azure · AWS (basics)</li>
+          <li>🔁 Git · CI</li>
+          <li>📜 Logging & docs</li>
+        </ul>
+      </article>
+
+      <article class="skill-card">
+        <h3>Data & AI</h3>
+        <ul>
+          <li>🧠 Agentic prototypes</li>
+          <li>🧹 ETL basics · JSON pipelines</li>
+          <li>📈 Metrics & checksums</li>
+        </ul>
+      </article>
+
+      <article class="skill-card">
+        <h3>People</h3>
+        <ul>
+          <li>🤝 Collaboration</li>
+          <li>🧑‍🏫 Mentoring</li>
+          <li>🛠️ Customer support (IT Rover)</li>
+          <li>🧩 Problem-solving</li>
+          <li>🕒 Time management</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+    <!-- PROJECTS (cream) -->
+    <section id="projects" class="card fade-up">
+      <div class="inner">
+        <div class="section-head"><h2>Projects</h2></div>
+        
+        <div class="grid" id="projectGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION (cream) -->
+    <section id="experience" class="card fade-up">
+      <div class="inner">
+        <div class="section-head"><h2>Experience & Education</h2></div>
+        <div class="timeline">
+          <div class="item">
+            <div>
+              <div class="where">Manchester Metropolitan University — BSc Computer Science</div>
+              <div class="muted">Key modules: Data Structures & Algorithms, Networks, Operating Systems, AI/ML</div>
+            </div>
+            <div class="when">2023 – 2026 (exp.)</div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="where">IT Rover / Peer Guide — MMU</div>
+              <div class="muted">Student tech support, onboarding, and systems troubleshooting with clear documentation.</div>
+            </div>
+            <div class="when">2024 – 2025</div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="where">Teaching & Tutoring (GCSE Maths)</div>
+              <div class="muted">Designed structured, test‑driven learning plans; sharpened comms & collaboration.</div>
+            </div>
+            <div class="when">2024 – Present</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (cream) -->
+    <section id="contact" class="card fade-up">
+      <div class="inner">
+        <div class="section-head"><h2>Contact</h2><span class="muted">Let’s build something useful.</span></div>
+        <div class="grid">
+          <div class="pane" style="background:#fff;border:1px solid var(--cream-border);border-radius:14px">
+  <h3 style="margin:0 0 12px 0;color:var(--text-dark)">Reach me</h3>
+
+  <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 13.065 0 6V4l12 7.065L24 4v2l-12 7.065z"/><path d="M0 6l12 7.065L24 6v14H0z"/>
+    </svg>
+    <a href="mailto:irfan@example.com" id="emailLink">irfantalukder7@gmail.com</a>
+  </p>
+
+  <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.83 1.31 3.52 1 .11-.79.42-1.31.76-1.61-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.31-.54-1.57.12-3.27 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.7.25 2.96.12 3.27.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.61-5.49 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/>
+    </svg>
+    <a href="https://github.com/IrfanT05" target="_blank" rel="noopener">github.com/IrfanT05</a>
+  </p>
+
+  <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/>
+    </svg>
+    <a href="https://www.linkedin.com/in/irfan-talukder" target="_blank" rel="noopener">linkedin.com/in/irfan-talukder</a>
+  </p>
+</div>
+
+          <div class="pane" style="background:#fff;border:1px solid var(--cream-border);border-radius:14px">
+  <h3 style="margin:0 0 12px 0;color:var(--text-dark)">Send a message</h3>
+  <form action="mailto:irfan  @example.com" method="post" enctype="text/plain">
+    <label for="name" style="display:block;margin-bottom:6px;color:var(--text-dark)">Name:</label>
+    <input type="text" id="name" name="name" required style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px"/>
+    <label for="email" style="display:block;margin-bottom:6px;color:var(--text-dark)">Email:</label>
+    <input type="email" id="email" name="email" required style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px"/>
+    <label for="message" style="display:block;margin-bottom:6px;color:var(--text-dark)">Message:</label>
+    <textarea id="message" name="message" rows="4" required style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px"></textarea>
+    <button type="submit" class="btn gradient">Send</button>
+  </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FULL-WIDTH FOOTER -->
+  <footer>
+    <div class="foot-inner">© <span id="year"></span> Irfan Talukder. All Rights Reserved</div>
+  </footer>
+
+  <script>
+    // Project data (edit to your real links)
+    const PROJECTS = [
+      { title: "MyDeen (Islamic App)", 
+        period: "2024–2025", 
+        summary: "Flutter app for prayer times, Quran reader, and Tasbih counter. Offline‑first with background notifications and location‑aware calculation methods.", 
+        bullets: [ "Flutter/Dart · Provider state mgmt", "REST integration (Aladhan/custom)", "Offline cache · Background scheduling", ], 
+        links: [ { label: "Repo", href: "#" }, { label: "Demo", href: "#" }, ], tags: ["Flutter", "REST"], },
+  {
+    title: "Pizza Factory Game",
+    period: "2024–2025",
+    summary:
+      "A Java-based desktop simulation game where players manage a pizza factory — handling orders, ingredients, and production using OOP principles.",
+    bullets: [
+      "Java Swing GUI and event handling",
+      "OOP structure: inheritance, polymorphism, and interfaces",
+      "File I/O for order persistence",
+    ],
+    links: [
+      { label: "Repo", href: "#" },
+      
+    ],
+    tags: ["Java", "OOP", "GUI"],
+  },
+
+  {
+    title: "BookShop – Online Bookstore",
+    period: "2024",
+    summary:
+      "A responsive e-commerce website allowing users to browse, search, and purchase books online with clean UI and cart management.",
+    bullets: [
+      "Built with HTML, CSS, and JavaScript",
+      "Dynamic product listing and local storage for cart simulation",
+      "Responsive design for desktop and mobile",
+    ],
+    links: [
+      { label: "Repo", href: "#" },
+    ],
+    tags: ["HTML", "CSS", "JavaScript"],
+  },
+
+  {
+    title: "Room Finder – Engineering Building",
+    period: "2024–2025",
+    summary:
+      "Collaborative full-stack project to build a room-finding web app for Manchester Metropolitan University’s Engineering Building.",
+    bullets: [
+      "Full-stack web app using HTML, CSS, and JavaScript",
+      "Interactive room search and map navigation",
+      "Developed collaboratively using Git version control",
+    ],
+    links: [
+      { label: "Team Repo", href: "#" },
+    ],
+    tags: ["Team Project", "Web", "JavaScript"],
+  },
+
+  {
+    title: "Data Structures & Algorithms (C#)",
+    period: "2024",
+    summary:
+      "A collection of implemented data structures and algorithms in C#, exploring computational efficiency and OOP design.",
+    bullets: [
+      "Circular Queue, Linked List, and Binary Tree",
+      "Sorting and searching algorithms",
+      "Console-based testing and visual trace output",
+    ],
+    links: [
+      { label: "Repo", href: "#" },
+    ],
+    tags: ["C#", "DSA", "OOP"],
+  },
+
+  {
+    title: "StarKow – Greeting Card Web App",
+    period: "2025",
+    summary:
+      "A full-stack greeting card web app to create and send digital cards with customizable templates and carousel features.",
+    bullets: [
+      "Built with HTML, CSS, JavaScript",
+      "Dynamic carousel template editor",
+      "Local storage for saving user cards",
+    ],
+    links: [
+
+      { label: "Repo", href: "#" },
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "Full Stack"],
+  },
+
+  {
+    title: "iOS Calculator Clone",
+    period: "2024",
+    summary:
+      "A functional iOS-style calculator built in Kotlin with Android Studio, focusing on logic accuracy and polished UI.",
+    bullets: [
+      "Android Studio XML layouts",
+      "Kotlin logic for operator precedence and error handling",
+      "Material Design UI with adaptive themes",
+    ],
+    links: [
+      { label: "Repo", href: "#" },
+    ],
+    tags: ["Kotlin", "Android", "UI/UX"],
+  },
+
+  {
+    title: "Adaptive Maths Quiz (Windows Forms)",
+    period: "2024",
+    summary:
+      "A C# Windows Forms quiz app that adapts question difficulty to the user’s performance, enhancing engagement and learning.",
+    bullets: [
+      "Dynamic question generation using random logic",
+      "Adaptive difficulty scaling",
+      "Score tracking and leaderboard view",
+    ],
+    links: [
+      { label: "Repo", href: "#" },
+    ],
+    tags: ["C#", "Windows Forms", "Adaptive Learning"],
+  },
+];
+
+    // Render Projects
+    const grid = document.getElementById('projectGrid');
+    const filters = document.querySelectorAll('.filter');
+
+    function cardTemplate(p){
+      const tagHTML = p.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+      const bullets = p.bullets.map(b=>`<li>${b}</li>`).join('');
+      const links = p.links.map(l=>`<a class=\"link\" href=\"${l.href}\" target=\"_blank\" rel=\"noopener\">${l.label} ↗</a>`).join('');
+      return `
+        <article class="p-card fade-up" data-tags="${p.tags.join(',')}">
+          <div class="meta"><span>${p.period}</span><span>${p.tags[0]}</span></div>
+          <h3>${p.title}</h3>
+          <p class="muted">${p.summary}</p>
+          <ul style="margin:0 0 2px 18px;padding:0;color:var(--text-dark)">${bullets}</ul>
+          <div class="tags">${tagHTML}</div>
+          <div class="links">${links}</div>
+        </article>
+      `;
+    }
+
+    function render(filter){
+      grid.innerHTML = PROJECTS
+        .filter(p => !filter || filter === 'all' || p.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())))
+        .map(cardTemplate)
+        .join('');
+    }
+
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.filter);
+    }));
+
+    render('all');
+
+    // Utilities
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('copyEmail')?.addEventListener('click', () => {
+      const email = document.getElementById('emailLink').textContent;
+      navigator.clipboard.writeText(email).then(()=>{ alert('Email copied to clipboard'); });
+    });
+    document.getElementById('downloadCV').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open('/Irfan_Talukder_CV.pdf','_blank');
+    });
+  </script>
+</body>
+</html>
