@@ -1,1594 +1,909 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Irfan Talukder — Portfolio</title>
-  <meta name="description"
-    content="Portfolio of Irfan Talukder — Computer Science, AI/ML, REST APIs, data pipelines, systems integration, Flutter, and university projects." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #89CFF0;
-      /* rich purple */
-      --cream: #fffaf2;
-      /* soft cream card */
-      --cream-border: #efe5d6;
-      /* subtle border */
-      --text-dark: #191b20;
-      /* text inside cream cards */
-      --text-light: #f6f6f9;
-      /* text on purple */
-      --muted-dark: #5b6270;
-      /* muted on cream */
-      --muted-light: #d6d6e4;
-      /* muted on purple */
-      --brand: #4aa3ff;
-      /* accent */
-      --brand-2: #7ef0c4;
-      /* secondary accent */
-      --radius: 20px;
-      --shadow: 0 12px 30px rgba(0, 0, 0, .35);
-      --shadow-soft: 0 6px 18px rgba(0, 0, 0, .15);
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text-light);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    a {
-      color: #5f5f60;
-      text-decoration: none
-    }
-
-    a:hover {
-      opacity: .9
-    }
-
-    section.card,
-    .pane,
-    .hero-card {
-      border-radius: 16px;
-    }
-
-    /* Global fade */
-    body {
-      opacity: 0;
-      animation: fadeIn .6s ease-out forwards
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        filter: saturate(.9) blur(.4px)
-      }
-
-      to {
-        opacity: 1;
-        filter: none
-      }
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp .6s ease-out .1s forwards
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: none
-      }
-    }
-
-    /* Full-width header + footer */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 60;
-      background: var(--cream);
-      border-bottom: 1px solid var(--cream-border);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      ;
-    }
-
-    .nav {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      color: var(--text-dark)
-    }
-
-    .brand {
-      font-weight: 700;
-      color: var(--text-dark)
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap
-    }
-
-    .nav a {
-      color: var(--text-dark)
-    }
-
-    /* --- Header: hamburger --- */
-    .nav-toggle {
-      display: none;
-      width: 40px;
-      height: 36px;
-      border: 1px solid var(--cream-border);
-      border-radius: 10px;
-      background: #fff;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: #222;
-      border-radius: 2px;
-    }
-
-    .mobile-menu {
-      display: none;
-      background: var(--cream);
-      border-top: 1px solid var(--cream-border);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
-    }
-
-    .mobile-menu a {
-      display: block;
-      padding: 14px 20px;
-      color: var(--text-dark);
-      text-decoration: none;
-      border-bottom: 1px solid var(--cream-border);
-    }
-
-    .mobile-menu .mobile-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 14px 20px;
-    }
-
-    /* --- Hero: make it stack + remove overlap on small screens --- */
-    @media (max-width: 900px) {
-      .nav-links {
-        display: none;
-      }
-
-      /* hide desktop links */
-      .nav-toggle {
-        display: inline-flex;
-      }
-
-      /* show burger */
-
-      .mobile-menu[data-open="true"] {
-        display: block;
-      }
-
-      .mobile-menu[hidden] {
-        display: none;
-      }
-
-      .container {
-        padding: 20px 16px 64px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 12px !important;
-      }
-
-      .portrait {
-        width: 100%;
-        max-width: 420px;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        /* keeps portrait shape */
-        margin: 0 auto;
-      }
-
-      .portrait img {
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .hero-card {
-        margin-left: 0 !important;
-        /* kill the desktop overlap */
-        padding: 22px;
-      }
-    }
-
-    /* --- Projects grid responsive --- */
-    @media (max-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-head h2 {
-        font-size: 22px;
-      }
-
-      .p-card {
-        padding: 14px;
-      }
-    }
-
-    /* --- Contact: make 1 column on small --- */
-    @media (max-width: 900px) {
-      #contact .grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-    }
-
-    /* Optional: tighten header spacing on phones */
-    @media (max-width: 420px) {
-      .nav {
-        padding: 10px 14px;
-      }
-
-      .brand {
-        font-size: 16px;
-      }
-    }
-
-
-    .icon-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      color: var(--text-dark)
-    }
-
-    .btn,
-    .link,
-    .filter,
-    .icon-link {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
-      transform: translateY(0) scale(1);
-      will-change: transform;
-    }
-
-    .btn:hover,
-    .link:hover,
-    .filter:hover,
-    .icon-link:hover {
-      transform: translateY(-2px) scale(1.06);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-    }
-
-    .btn:active,
-    .link:active,
-    .filter:active,
-    .icon-link:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn:focus-visible,
-    .link:focus-visible,
-    .filter:focus-visible,
-    .icon-link:focus-visible {
-      outline: 3px solid rgba(74, 163, 255, 0.35);
-      outline-offset: 2px;
-      border-radius: 12px;
-    }
-
-    .btn.primary:hover {
-      box-shadow: 0 10px 24px rgba(78, 203, 255, 0.35);
-    }
-
-    .filter {
-      cursor: pointer;
-    }
-
-    .icon-link:hover {
-      background: #fff;
-      opacity: 0.95;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border: 1px solid var(--cream-border);
-      border-radius: 12px;
-      background: #fff;
-      color: var(--text-dark);
-      transition: all 0.25s ease;
-      /* smooth animation */
-      transform: scale(1);
-    }
-
-    .btn:hover {
-      transform: scale(1.06);
-      /* slightly larger on hover */
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-      /* add depth */
-    }
-
-    .btn.primary:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 20px rgba(78, 203, 255, 0.4);
-      /* soft blue-green glow */
-    }
-
-    .btn:not(.primary):hover {
-      background: #f5f5f5;
-    }
-
-    /* Header nav link hover effect */
-    header nav a {
-      position: relative;
-      font-weight: 500;
-      color: var(--text-dark);
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-
-    /* subtle color change */
-    header nav a:hover {
-      color: var(--brand);
-    }
-
-    /* animated underline */
-    header nav a::after {
-      content: "";
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: linear-gradient(90deg, #4da3ff, #77f3c6);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    header nav a:hover::after {
-      width: 100%;
-    }
-
-    .btn.primary {
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      color: #081a1a;
-      font-weight: 700
-    }
-
-
-    /* Container for section cards */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 28px 40px 80px
-    }
-
-    /* Hero (on purple background) */
-    .hero {
-      display: grid;
-      grid-template-columns: 310px 1fr;
-      gap: 8px;
-      align-items: stretch;
-      padding: 28px 0
-    }
-
-    .portrait {
-      width: 230px;
-      height: 300px;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: #210c3b;
-      border: 1px solid rgba(255, 255, 255, .08)
-    }
-
-    .portrait img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover
-    }
-
-    .hero-card {
-      background: var(--cream);
-      color: var(--text-dark);
-      border: 1px solid var(--cream-border);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow)
-    }
-
-    h1 {
-      font-size: 40px;
-      line-height: 1.1;
-      margin: 8px 0 12px;
-      color: var(--text-dark)
-    }
-
-    .subtitle {
-      color: var(--muted-dark);
-      font-size: 18px;
-      line-height: 1.55
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 12px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-    }
-
-    .hero-card {
-      background: var(--cream);
-      color: var(--text-dark);
-      border: 1px solid var(--cream-border);
-      border-radius: var(--radius);
-      padding: 32px;
-      box-shadow: var(--shadow);
-
-      display: flex;
-      /* activate flexbox */
-      flex-direction: column;
-      /* stack elements vertically */
-      justify-content: space-between;
-      /* spread elements evenly */
-      height: 100%;
-      /* match portrait height */
-      margin: 0;
-    }
-
-    .hero img {
-      display: block;
-      margin: 0;
-      /* remove accidental margins */
-    }
-
-    .hero {
-      gap: 0;
-    }
-
-    .hero-card {
-      margin-left: -4px;
-      /* overlap just a little */
-    }
-
-    /* Section cards */
-    section.card {
-      background: var(--cream);
-      color: var(--text-dark);
-      border: 1px solid var(--cream-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      margin-top: 32px
-    }
-
-
-    /* About + Highlights layout */
-    #about .grid {
-      display: grid;
-      align-items: stretch;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px
-    }
-
-    .pane {
-      padding: 0
-    }
-
-    .pane header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--cream-border)
-    }
-
-    .pane .title {
-      font-weight: 700
-    }
-
-    .pane .sub {
-      color: var(--muted-dark);
-      margin-top: 4px
-    }
-
-    .pane .body {
-      padding: 20px 24px 24px
-    }
-
-    .pane {
-      background: var(--cream);
-      border: 1px solid var(--cream-border);
-      border-radius: 20px;
-      /* <- Rounded corners */
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      /* Makes sure content respects the border radius */
-
-    }
-
-    .hl-list {
-      list-style: none;
-      margin: 0;
-      padding: 14px 20px 20px 20px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .hl {
-      display: flex;
-      align-items: flex-start;
-      /* keeps icon aligned with text */
-      gap: 10px;
-      /* spacing between icon & text */
-    }
-
-    .hl .dot {
-      flex-shrink: 0;
-      /* stops icon from resizing */
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffe9d6;
-      color: #9c3d00;
-      font-size: 14px;
-      border: 1px solid var(--cream-border);
-      margin-top: 20px;
-      /* small vertical offset looks natural */
-    }
-
-    /* Tech stack chips */
-    .stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px
-    }
-
-    .chip {
-      padding: 8px 12px;
-      border: 1px solid var(--cream-border);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--text-dark);
-      font-size: 13px
-    }
-
-    /* Projects */
-    #projects .inner {
-      padding: 18px
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      margin-bottom: 14px
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: 26px;
-      color: var(--text-dark)
-    }
-
-    .muted {
-      color: var(--muted-dark)
-    }
-
-    .filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 14px
-    }
-
-    .filter {
-      padding: 8px 12px;
-      border: 1px solid var(--cream-border);
-      border-radius: 10px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 13px;
-      color: var(--text-dark)
-    }
-
-    .filter.active {
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      color: #001b20;
-      font-weight: 700
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px
-    }
-
-    .p-card {
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px
-    }
-
-    .p-card .meta {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted-dark);
-      font-size: 12px
-    }
-
-    .p-card h3 {
-      margin: 0;
-      font-size: 18px;
-      color: var(--text-dark)
-    }
-
-    .p-card .muted {
-      color: var(--muted-dark)
-    }
-
-    .tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap
-    }
-
-    .tag {
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      color: var(--text-dark)
-    }
-
-    .links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: auto
-    }
-
-    .link {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      padding: 8px 12px;
-      border: 1px solid var(--cream-border);
-      border-radius: 10px;
-      background: #fff;
-      color: var(--text-dark)
-    }
-
-    /* Skills */
-    #skills .inner {
-      padding: 18px
-    }
-
-    .chips {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap
-    }
-
-    .chip-soft {
-      background: #fff
-    }
-
-    /* Skills: Mahzabeen-style */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .btn.gradient {
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      border: none;
-      color: #081a1a;
-      font-weight: 600;
-    }
-
-
-    .skill-card {
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      border-radius: 14px;
-      padding: 16px 18px;
-    }
-
-    .skill-card h3 {
-      margin: 0 0 10px 0;
-      color: var(--text-dark);
-      font-size: 16px;
-    }
-
-    .skill-card ul {
-      list-style: none;
-      /* no default dots */
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 8px;
-      color: var(--text-dark);
-    }
-
-    .skill-card li {
-      display: flex;
-      gap: 10px;
-      /* icon ↔ text */
-      align-items: flex-start;
-      line-height: 1.35;
-    }
-
-    /* responsive */
-    @media (max-width: 900px) {
-      .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-
-    /* Experience */
-    #experience .inner {
-      padding: 18px
-    }
-
-    .timeline {
-      display: grid;
-      gap: 14px
-    }
-
-    .item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      padding: 16px;
-      border: 1px dashed var(--cream-border);
-      border-radius: 14px;
-      background: #fff
-    }
-
-    .item .where {
-      font-weight: 600;
-      color: var(--text-dark)
-    }
-
-    .item .when {
-      color: var(--muted-dark)
-    }
-
-    /* Contact */
-    #contact .inner {
-      padding: 18px
-    }
-
-    #contact .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px
-    }
-
-    #contact .pane {
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      border-radius: 14px;
-      padding: 18px
-    }
-
-    /* Contact section adjustments */
-    .contact-full {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      border-radius: 20px;
-      padding: 48px 56px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    /* Typography and spacing */
-    .contact-full h3 {
-      font-size: 24px;
-      margin-bottom: 28px;
-      /* bigger space below heading */
-      color: var(--text-dark);
-    }
-
-    /* Each contact line */
-    .contact-full p {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      /* space between icon/text/button */
-      font-size: 17px;
-      color: var(--text-dark);
-      margin: 22px 0;
-      /* space between each line */
-    }
-
-    /* Icons */
-    .contact-full svg {
-      flex-shrink: 0;
-      color: var(--brand);
-      transition: transform 0.25s ease;
-      width: 22px;
-      height: 22px;
-    }
-
-    /* Hover interaction */
-    .contact-full p:hover svg {
-      transform: scale(1.15);
-    }
-
-    /* Links */
-    .contact-full a {
-      color: var(--text-dark);
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-
-    .contact-full a:hover {
-      color: var(--brand);
-    }
-
-    /* Contact section adjustments */
-    .contact-full {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid var(--cream-border);
-      border-radius: 20px;
-      padding: 48px 56px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    /* Typography and spacing */
-    .contact-full h3 {
-      font-size: 24px;
-      margin-bottom: 28px;
-      /* bigger space below heading */
-      color: var(--text-dark);
-    }
-
-    /* Each contact line */
-    .contact-full p {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      /* space between icon/text/button */
-      font-size: 17px;
-      color: var(--text-dark);
-      margin: 22px 0;
-      /* space between each line */
-    }
-
-    /* Icons */
-    .contact-full svg {
-      flex-shrink: 0;
-      color: var(--brand);
-      transition: transform 0.25s ease;
-      width: 22px;
-      height: 22px;
-    }
-
-    /* Hover interaction */
-    .contact-full p:hover svg {
-      transform: scale(1.15);
-    }
-
-    /* Links */
-    .contact-full a {
-      color: var(--text-dark);
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-
-    .contact-full a:hover {
-      color: var(--brand);
-    }
-
-    /* 1) Kill any spacing between photo and tile */
-    .hero {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 0 !important;
-      /* <- no space */
-      column-gap: 0 !important;
-    }
-
-    /* 2) Ensure neither side adds its own margin */
-    .portrait {
-      margin: 0 !important;
-    }
-
-    .hero-card {
-      margin: 0 !important;
-    }
-
-    /* 3) (Optional) create a tiny overlap for a seamless look */
-    .hero-card {
-      margin-left: -6px;
-    }
-
-    /* tweak -2 to -8px to taste */
-
-    /* 4) If the container has inner padding that shows between them */
-    .container {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-
-    /* keep, but not relevant to the seam */
-
-
-
-    /* Footer full-width */
-    footer {
-      margin-top: 32px;
-      background: var(--cream);
-      border-top: 1px solid var(--cream-border);
-      color: var(--text-dark)
-    }
-
-    .foot-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 16px 20px;
-      text-align: center
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .hero {
-        grid-template-columns: 240px 1fr
-      }
-    }
-
-    @media (max-width: 900px) {
-      #about .grid {
-        grid-template-columns: 1fr
-      }
-
-      .grid {
-        grid-template-columns: 1fr 1fr
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero {
-        grid-template-columns: 1fr
-      }
-
-      .portrait {
-        margin: 0 auto
-      }
-
-      .grid {
-        grid-template-columns: 1fr
-      }
-
-      #contact .grid {
-        grid-template-columns: 1fr
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <!-- FULL-WIDTH HEADER -->
-  <header>
-    <nav class="nav">
-      <div class="brand">Irfan ALam</div>
-
-      <!-- Desktop Links -->
-      <div class="nav-links">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-
-        <!-- github icon -->
-        <a class="icon-link" href="https://github.com/irfantalukder" target="_blank" rel="noopener" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.83 1.31 3.52 1 .11-.79.42-1.31.76-1.61-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.31-.54-1.57.12-3.27 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.7.25 2.96.12 3.27.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.61-5.49 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z" />
-          </svg>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      Irfan Talukder | Web Design &amp; IT Support Manchester
+    </title>
+    <meta name="description" content="Freelance web design, website fixes and IT support for small businesses in Manchester and across the UK. Straightforward technical help without agency overhead.">
+    <meta name="theme-color" content="#35283f">
+    <link rel="canonical" href="https://irfantalukder.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Irfan Talukder | Websites &amp; IT Support for Small Businesses">
+    <meta property="og:description" content="Build a better website. Fix a technical problem. Get straightforward help from a Manchester-based freelancer, working with businesses across the UK.">
+    <meta property="og:url" content="https://irfantalukder.com/">
+    <meta property="og:image" content="https://irfantalukder.com/PortfolioImage.jpg">
+    <meta property="og:image:alt" content="Irfan Talukder">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer>
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Irfan Talukder — Home">
+          <span class="monogram" aria-hidden="true">
+            it.
+          </span>
+          <span>
+            Irfan Talukder
+            <small>
+              WEB &amp; IT SOLUTIONS
+            </small>
+          </span>
         </a>
-        <!-- linkedin icon -->
-        <a class="icon-link" href="https://www.linkedin.com/in/irfantalukder" target="_blank" rel="noopener"
-          aria-label="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z" />
-          </svg>
-        </a>
-        <a class="btn gradient" href="#" id="downloadCV">Download CV</a>
-      </div>
-
-      <!-- Mobile Links For Responsiveness -->
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-
-    <!-- Mobile slide-down menu -->
-    <div class="mobile-menu" id="mobileMenu" hidden>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <div class="mobile-actions">
-        <a class="icon-link" href="https://github.com/irfantalukder" target="_blank" rel="noopener">GitHub</a>
-        <a class="icon-link" href="https://www.linkedin.com/in/irfantalukder" target="_blank"
-          rel="noopener">LinkedIn</a>
-        <a class="btn gradient" href="#" id="downloadCVMobile">Download CV</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <!-- HERO (portrait left, text right) -->
-    <section class="hero">
-      <div class="fade-up">
-        <div class="portrait" aria-label="Portrait">
-          <img src="PortfolioImage.jpg" alt="Portrait of Irfan Talukder" />
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" hidden>
+          Menu
+          <span aria-hidden="true">
+            ☰
+          </span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#services">
+            Services
+          </a>
+          <a href="#why-me">
+            Why me
+          </a>
+          <a href="#projects">
+            My work
+          </a>
+          <a href="#about">
+            About
+          </a>
+          <a href="#process">
+            How it works
+          </a>
+          <a class="button button-small" href="#contact">
+            Get a Free Quote
+            <span aria-hidden="true">
+              ↗
+            </span>
+          </a>
         </div>
-      </div>
-
-      <div class="hero-card fade-up" style="animation-delay:.05s">
-        <span class="kicker"
-          style="color:var(--muted-dark);letter-spacing:.3em;text-transform:uppercase;font-size:12px">prospective
-          Computer Science graduate (2026)</span>
-        <h1>Hi, I'm Irfan Talukder</h1>
-        <p class="subtitle">A Final‑year BSc Computer Science (MMU) focused on AI/ML and data integration. I love
-          turning messy systems into clean, testable solutions — with a touch of experimentation.</p>
-        <div class="hero-cta">
-          <a class="btn primary" href="#projects">See Projects</a>
-          <a class="btn" href="#contact">Get in Touch</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT + HIGHLIGHTS (cream cards) -->
-    <section id="about" class="card fade-up">
-      <div class="grid">
-        <article class="pane">
-          <header>
-            <div class="title">💼 What I Do</div>
-            <div class="sub">Building reliable, integrated systems across mobile, web, and backend platforms.</div>
-          </header>
-          <div class="body">
-            <p>I am a Computer Science undergraduate experienced in developing and deploying <strong>mobile</strong>,
-              <strong>web</strong>, and <strong>backend systems</strong>. Skilled in <strong>Flutter</strong>,
-              <strong>Python</strong>, and <strong>C#/.NET</strong>, with practical experience designing and consuming
-              <strong>REST</strong> and <strong>RESTful APIs</strong> across academic and personal projects. My work
-              focuses on seamless data handling, integration, and efficient backend communication.
-            </p>
-            <p style="margin-top:14px">At <strong>Manchester Metropolitan University</strong>, I contributed to
-              full‑stack web apps such as a <strong>Room Finder</strong> built with HTML/CSS/JavaScript, and backend
-              services that connect, fetch, and process data via RESTful APIs. I’ve also prototyped AI‑assisted
-              integration pipelines to improve migration accuracy and reliability.</p>
-            <p style="margin-top:14px">Beyond development, I provide technical support as an <strong>IT Rover</strong>,
-              resolving network, hardware, and software incidents via <strong>Freshservice</strong>. I also mentor
-              first‑year Computer Science students, focusing on logical design (e.g., <strong>Logisim
-                Evolution</strong>), problem‑solving, and foundational CS concepts.</p>
-
-
+      </nav>
+    </header>
+    <main id="main">
+      <!-- Enquiry buttons lead to the real contact details below. -->
+      <section class="hero container" id="home" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow location">
+            <span aria-hidden="true">
+            </span>
+            MANCHESTER BASED. UK WIDE.
+          </p>
+          <h1 id="hero-title">
+            Websites &amp; IT support for
+            <em>
+              small businesses.
+            </em>
+          </h1>
+          <p class="lead">
+            I build, fix and maintain business websites, and help solve everyday technology problems. Straightforward support, without the agency overhead or technical jargon.
+          </p>
+          <div class="button-row">
+            <a class="button" href="#contact">
+              Get a Free Quote
+              <span aria-hidden="true">
+                ↗
+              </span>
+            </a>
+            <a class="button button-outline" href="#projects">
+              View My Work
+              <span aria-hidden="true">
+                ↓
+              </span>
+            </a>
           </div>
-        </article>
-
-        <aside class="pane">
-          <header>
-            <div class="title">🌟 Highlights</div>
-          </header>
-          <ul class="hl-list">
-            <li class="hl"><span class="dot">📱</span>
-              <p>Developed and deployed a cross‑platform mobile application using <strong>Flutter</strong>, integrating
-                RESTful APIs and offline features.</p>
-            </li>
-            <li class="hl"><span class="dot">💻</span>
-              <p>Resolved 100+ IT tickets as an <strong>MMU IT Rover</strong>, troubleshooting network, hardware, and
-                software issues via <strong>Freshservice</strong>.</p>
-            </li>
-            <li class="hl"><span class="dot">🌐</span>
-              <p>Collaborated on a <strong>Room Finder</strong> tool (HTML/CSS/JavaScript) supporting campus navigation
-                and user experience.</p>
-            </li>
-            <li class="hl"><span class="dot">🧑‍🏫</span>
-              <p>Mentored first‑year students in Computer Science modules, including <strong>Logisim Evolution</strong>
-                and data structures.</p>
-            </li>
-            <li class="hl"><span class="dot">🎨</span>
-              <p>Collaborated on a website <strong>StarKow</strong> — a greeting‑card web app with custom templates and
-                local storage.</p>
-            </li>
-            <li class="hl"><span class="dot">🔗</span>
-              <p>Prototyped data integration demos in <strong>Python</strong> and <strong>C#</strong> for AI‑assisted
-                migration workflows.</p>
-            </li>
-            <li class="hl"><span class="dot">🤝</span>
-              <p>Delivered peer guidance and digital literacy support for 100+ students through MMU engagement.</p>
-            </li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <!-- SKILLS (cream) -->
-    <section id="skills" class="card fade-up">
-      <div class="inner">
-        <div class="section-head">
-          <h2>Skills</h2>
+          <p class="hero-note">
+            Your website. Your business. One person to talk to.
+          </p>
         </div>
-
-        <div class="skills-grid">
-          <article class="skill-card">
-            <h3>Languages</h3>
-            <ul>
-              <li>🐍 Python</li>
-              <li>🧱 C# / .NET</li>
-              <li>🧩 Dart (Flutter)</li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 128 128">
-                  <path fill="#7F52FF" d="M0 0h128L64 64l64 64H0z" />
-                </svg>
-                Kotlin
-              </li>
-              <li>🕸️ HTML · CSS · JavaScript</li>
-              <li>🗃️ SQL</li>
-            </ul>
-          </article>
-
-          <article class="skill-card">
-            <h3>Frameworks & APIs</h3>
-            <ul>
-              <li>🔗 REST / RESTful APIs</li>
-              <li>🧪 xUnit · pytest</li>
-              <li>📦 ASP.NET Core minimal APIs</li>
-              <li>📱 Flutter (state mgmt, offline)</li>
-            </ul>
-          </article>
-
-          <article class="skill-card">
-            <h3>Cloud & DevOps</h3>
-            <ul>
-              <li>🐳 Docker</li>
-              <li>☁️ Azure · AWS (basics)</li>
-              <li>🔁 Git · CI</li>
-              <li>📜 Logging & docs</li>
-            </ul>
-          </article>
-
-          <article class="skill-card">
-            <h3>Data & AI</h3>
-            <ul>
-              <li>🧠 Agentic prototypes</li>
-              <li>🧹 ETL basics · JSON pipelines</li>
-              <li>📈 Metrics & checksums</li>
-            </ul>
-          </article>
-
-          <article class="skill-card">
-            <h3>People</h3>
-            <ul>
-              <li>🤝 Collaboration</li>
-              <li>🧑‍🏫 Mentoring</li>
-              <li>🛠️ Customer support (IT Rover)</li>
-              <li>🧩 Problem-solving</li>
-              <li>🕒 Time management</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- PROJECTS (cream) -->
-    <section id="projects" class="card fade-up">
-      <div class="inner">
-        <div class="section-head">
-          <h2>Projects</h2>
-        </div>
-
-        <div class="grid" id="projectGrid" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE & EDUCATION (cream) -->
-    <section id="experience" class="card fade-up">
-      <div class="inner">
-        <div class="section-head">
-          <h2>Experience & Education</h2>
-        </div>
-        <div class="timeline">
-          <div class="item">
+        <figure class="portrait-card">
+          <div class="portrait-top">
+            <span>
+              THE PERSON BEHIND THE WORK
+            </span>
+            <span aria-hidden="true">
+              ↗
+            </span>
+          </div>
+          <img src="PortfolioImage.jpg" alt="Irfan Talukder, your Manchester-based web and IT freelancer" width="397" height="397" fetchpriority="high">
+          <figcaption>
             <div>
-              <div class="where">Manchester Metropolitan University — BSc Computer Science</div>
-              <div class="muted">Key modules: Data Structures & Algorithms, Networks, Operating Systems, AI/ML</div>
+              <strong>
+                Hello, I'm Irfan.
+              </strong>
+              <span>
+                Your web &amp; IT helping hand.
+              </span>
             </div>
-            <div class="when">2023 – 2026 (exp.)</div>
-          </div>
-          <div class="item">
+            <span class="portrait-mark" aria-hidden="true">
+              it.
+            </span>
+          </figcaption>
+        </figure>
+      </section>
+      <div class="trust-strip">
+        <ul class="container">
+          <li>
+            <span aria-hidden="true">
+              ✓
+            </span>
+            First Class Computer Science Graduate
+          </li>
+          <li>
+            <span aria-hidden="true">
+              ✓
+            </span>
+            Frontline University IT Experience
+          </li>
+          <li>
+            <span aria-hidden="true">
+              ✓
+            </span>
+            Direct, Personal Support
+          </li>
+        </ul>
+      </div>
+      <section class="section container value-section" aria-labelledby="value-title">
+        <div>
+          <p class="eyebrow">
+            LESS TECH TROUBLE. MORE TIME FOR BUSINESS.
+          </p>
+          <h2 id="value-title">
+            Technology should help your business,
+            <br>
+            <em>
+              not slow it down.
+            </em>
+          </h2>
+        </div>
+        <div class="value-copy">
+          <p>
+            An outdated website. A page that doesn't work on phones. A printer that won't connect. Small problems can take up time you don't have.
+          </p>
+          <p>
+            Whether you need a fresh start or a few things put right, I can help you understand the problem and agree a practical next step.
+          </p>
+        </div>
+      </section>
+      <section class="section services-section" id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section-heading">
             <div>
-              <div class="where">IT Rover / Peer Guide — MMU</div>
-              <div class="muted">Student tech support, onboarding, and systems troubleshooting with clear documentation.
+              <p class="eyebrow">
+                WHAT I CAN HELP WITH
+              </p>
+              <h2 id="services-title">
+                Practical help.
+                <br>
+                For the work that matters.
+              </h2>
+            </div>
+            <p>
+              For restaurants and takeaways, tradespeople, tutors, local shops, professional services, startups and sole traders — with or without an IT department.
+            </p>
+          </div>
+          <div class="services-grid">
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                ▤
+              </span>
+              <span class="card-number" aria-hidden="true">
+                01
+              </span>
+              <h3>
+                Website Design
+              </h3>
+              <p>
+                A new business website or a thoughtful redesign, with clear information and an easy way for customers to get in touch. Built for phones, tablets and computers.
+              </p>
+              <p class="card-detail">
+                A professional home for your business
+              </p>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                &lt;/&gt;
+              </span>
+              <span class="card-number" aria-hidden="true">
+                02
+              </span>
+              <h3>
+                Website Fixes &amp; Improvements
+              </h3>
+              <p>
+                Broken layouts, mobile issues, forms and content changes. Help with HTML, CSS, JavaScript and straightforward WordPress problems.
+              </p>
+              <p class="card-detail">
+                Get the little things working properly
+              </p>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                ↻
+              </span>
+              <span class="card-number" aria-hidden="true">
+                03
+              </span>
+              <h3>
+                Website Maintenance
+              </h3>
+              <p>
+                Content updates, small changes and troubleshooting when your website needs attention. Practical help as your business changes.
+              </p>
+              <p class="card-detail">
+                Keep your website useful and up to date
+              </p>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                ⌘
+              </span>
+              <span class="card-number" aria-hidden="true">
+                04
+              </span>
+              <h3>
+                Small Business IT Support
+              </h3>
+              <p>
+                Help with computers, software, printers and devices, including basic connection and network printer issues. Remote support where the problem allows.
+              </p>
+              <p class="card-detail">
+                Make everyday technology less frustrating
+              </p>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                ⊕
+              </span>
+              <span class="card-number" aria-hidden="true">
+                05
+              </span>
+              <h3>
+                Website Health Check
+              </h3>
+              <p>
+                A review of your website's mobile layout, usability, loading performance and technical issues, with clear recommendations on what needs attention.
+              </p>
+              <p class="card-detail">
+                Know what works — and what needs fixing
+              </p>
+            </article>
+            <article class="service-card">
+              <span class="service-icon" aria-hidden="true">
+                ⇄
+              </span>
+              <span class="card-number" aria-hidden="true">
+                06
+              </span>
+              <h3>
+                Automation &amp; Technical Tasks
+              </h3>
+              <p>
+                Simple scripts, data processing and connections to external services where appropriate. Let's see whether a repetitive job could be made easier.
+              </p>
+              <p class="card-detail">
+                Spend less time repeating the same tasks
+              </p>
+            </article>
+          </div>
+          <p class="section-footnote">
+            Not sure what your problem is called?
+            <a href="#contact">
+              Tell me what you need help with ↗
+            </a>
+          </p>
+        </div>
+      </section>
+      <section class="section why-section" id="why-me" aria-labelledby="why-title">
+        <div class="container why-layout">
+          <div class="why-intro">
+            <p class="eyebrow">
+              A PERSON, NOT AN AGENCY
+            </p>
+            <h2 id="why-title">
+              Good technical help starts with
+              <br>
+              <em>
+                a conversation.
+              </em>
+            </h2>
+            <p>
+              You shouldn't need a technical background to get the right support. I'll listen, explain the options and keep you involved.
+            </p>
+            <a class="text-link" href="#contact">
+              Let's talk about your project ↗
+            </a>
+          </div>
+          <div class="reasons-grid">
+            <article>
+              <h3>
+                Direct communication
+              </h3>
+              <p>
+                You deal directly with me, from the first message to the handover. No account managers or call centres.
+              </p>
+            </article>
+            <article>
+              <h3>
+                Straightforward explanations
+              </h3>
+              <p>
+                I explain the problem and proposed changes in normal language, so you can make an informed decision.
+              </p>
+            </article>
+            <article>
+              <h3>
+                Practical IT experience
+              </h3>
+              <p>
+                My background includes investigating, documenting and resolving issues in a busy university environment.
+              </p>
+            </article>
+            <article>
+              <h3>
+                Small-business friendly
+              </h3>
+              <p>
+                Help with a one-off fix or a larger piece of work, without needing an agency retainer for a straightforward job.
+              </p>
+            </article>
+            <article>
+              <h3>
+                Designed for real devices
+              </h3>
+              <p>
+                Websites built and tested with phones, tablets and desktops in mind, so customers can find what they need.
+              </p>
+            </article>
+            <article>
+              <h3>
+                A clear scope and price
+              </h3>
+              <p>
+                We agree what I'll deliver, the cost and the expected timing before work begins.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section container" id="projects" aria-labelledby="work-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">
+              SELECTED WORK
+            </p>
+            <h2 id="work-title">
+              Technical skills.
+              <br>
+              Practical applications.
+            </h2>
+          </div>
+          <p>
+            A selection of personal and collaborative projects showing how I approach websites, useful tools and connected applications.
+          </p>
+        </div>
+        <!-- Existing personal/team projects. Artwork is illustrative, not a screenshot. -->
+        <div class="work-grid">
+          <article class="work-card">
+            <div class="project-art bookstore" aria-hidden="true">
+              <div class="mini-browser">
+                <div class="browser-bar">
+                  <i>
+                  </i>
+                  <i>
+                  </i>
+                  <i>
+                  </i>
+                  <span>
+                    BOOKSHOP
+                  </span>
+                </div>
+                <div class="book-layout">
+                  <span class="book-heading">
+                    Your next
+                    <br>
+                    good read.
+                  </span>
+                  <div class="books">
+                    <i>
+                    </i>
+                    <i>
+                    </i>
+                    <i>
+                    </i>
+                  </div>
+                </div>
+              </div>
+              <span class="illustration-label">
+                PROJECT ILLUSTRATION
+              </span>
+            </div>
+            <div class="work-copy">
+              <p class="eyebrow">
+                RESPONSIVE WEB DEVELOPMENT
+              </p>
+              <h3>
+                BookShop
+              </h3>
+              <p>
+                Finding and browsing products should feel simple. I built a responsive bookshop with search, product listings and a simulated basket saved in the browser.
+              </p>
+              <p class="demonstrates">
+                <strong>
+                  What it shows:
+                </strong>
+                clear product presentation and interactive shopping interfaces. This is a demonstration, with no live checkout.
+              </p>
+              <p class="tech">
+                HTML · CSS · JavaScript · Local storage
+              </p>
+              <div class="project-links">
+                <a href="https://irfant05.github.io/Bookshop/">
+                  View demo ↗
+                </a>
+                <a href="https://github.com/IrfanT05/My-Bookstore">
+                  View code ↗
+                </a>
               </div>
             </div>
-            <div class="when">2024 – 2025</div>
-          </div>
-          <div class="item">
-            <div>
-              <div class="where">Teaching & Tutoring (GCSE Maths)</div>
-              <div class="muted">Designed structured, test‑driven learning plans; sharpened comms & collaboration.</div>
+          </article>
+          <article class="work-card">
+            <div class="project-art roomfinder" aria-hidden="true">
+              <div class="map-grid">
+                <div class="map-route">
+                </div>
+                <span class="map-pin">
+                  ⌖
+                </span>
+                <span class="map-label">
+                  Find your way.
+                </span>
+                <span class="map-room">
+                  ROOM FINDER
+                </span>
+              </div>
+              <span class="illustration-label">
+                PROJECT ILLUSTRATION
+              </span>
             </div>
-            <div class="when">2024 – Present</div>
+            <div class="work-copy">
+              <p class="eyebrow">
+                INTERACTIVE WEB TOOLS
+              </p>
+              <h3>
+                Room Finder
+              </h3>
+              <p>
+                Finding a room in a large building can be confusing. I contributed to a team web application for MMU's Engineering Building, with room search and map navigation.
+              </p>
+              <p class="demonstrates">
+                <strong>
+                  What it shows:
+                </strong>
+                turning information into a useful search tool, designing around a real user problem and collaborating on shared code.
+              </p>
+              <p class="tech">
+                HTML · CSS · JavaScript · Git
+              </p>
+              <div class="project-links">
+                <a href="https://irfant05.github.io/MMU-RoomFinder/">
+                  View demo ↗
+                </a>
+                <a href="https://github.com/IrfanT05/MMU-RoomFinder">
+                  View team code ↗
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="work-card">
+            <div class="project-art mydeen" aria-hidden="true">
+              <div class="app-illustration">
+                <span>
+                  MyDeen
+                </span>
+                <div class="moon">
+                  ☾
+                </div>
+                <strong>
+                  A little space
+                  <br>
+                  for every day.
+                </strong>
+                <div class="app-tabs">
+                  <i>
+                  </i>
+                  <i>
+                  </i>
+                  <i>
+                  </i>
+                </div>
+              </div>
+              <span class="illustration-label">
+                PROJECT ILLUSTRATION
+              </span>
+            </div>
+            <div class="work-copy">
+              <p class="eyebrow">
+                APPLICATION &amp; API INTEGRATION
+              </p>
+              <h3>
+                MyDeen
+              </h3>
+              <p>
+                I built a Flutter app bringing prayer times, a Quran reader and a Tasbih counter together, with location-aware API data and offline features.
+              </p>
+              <p class="demonstrates">
+                <strong>
+                  What it shows:
+                </strong>
+                connecting an application to external services and keeping useful information available without a constant connection.
+              </p>
+              <p class="tech">
+                Flutter · Dart · REST APIs · Offline cache
+              </p>
+              <div class="project-links">
+                <!-- Original repository: https://github.com/IrfanT05/MyDeen_flutter (currently returns 404). -->
+                <span class="code-status">
+                  Code currently unavailable
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="more-work">
+          <div>
+            <h3>
+              This website, too.
+            </h3>
+            <p>
+              A focused business website with responsive layouts, accessible navigation and a clear route to making an enquiry. Built with HTML, CSS and a little JavaScript.
+            </p>
+          </div>
+          <a class="text-link" href="https://github.com/IrfanT05/MyPortfolio">
+            View website code ↗
+          </a>
+        </div>
+        <details class="other-projects">
+          <summary>
+            More development projects
+          </summary>
+          <p>
+            Further examples from my personal and academic work:
+          </p>
+          <ul>
+            <li>
+              <a href="https://github.com/IrfanT05/StarKow-Project">
+                StarKow — collaborative greeting-card web app
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/IrfanT05/Pizza-Factory-Game">
+                Pizza Factory — Java desktop simulation
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/IrfanT05/Mathadox-NEA">
+                Mathadox — adaptive maths quiz
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/IrfanT05/IOS-CalculatorClone">
+                Calculator — Kotlin application
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/IrfanT05/ADS2425PortfolioAssignment">
+                Data structures and algorithms — C#
+              </a>
+            </li>
+          </ul>
+        </details>
+      </section>
+      <section class="section examples-section" aria-labelledby="examples-title">
+        <div class="container">
+          <p class="eyebrow">
+            A LOOK AHEAD
+          </p>
+          <h2 id="examples-title">
+            Example website solutions
+          </h2>
+          <p class="section-description">
+            Planned sample websites to show what's possible for different businesses. These demos are not yet available.
+          </p>
+          <div class="examples-grid">
+            <article>
+              <span class="demo-status">
+                Demo project coming soon
+              </span>
+              <h3>
+                Restaurants &amp; Takeaways
+              </h3>
+              <p>
+                Menus, opening hours and a clear route to ordering or getting in touch.
+              </p>
+            </article>
+            <article>
+              <span class="demo-status">
+                Demo project coming soon
+              </span>
+              <h3>
+                Trades &amp; Local Services
+              </h3>
+              <p>
+                Services, areas covered and a simple way to request a quote.
+              </p>
+            </article>
+            <article>
+              <span class="demo-status">
+                Demo project coming soon
+              </span>
+              <h3>
+                Tutors &amp; Professionals
+              </h3>
+              <p>
+                Clear information about your expertise, services and how to enquire.
+              </p>
+            </article>
           </div>
         </div>
+      </section>
+      <section class="section container about-layout" id="about" aria-labelledby="about-title">
+        <div>
+          <p class="eyebrow">
+            A LITTLE ABOUT ME
+          </p>
+          <h2 id="about-title">
+            Hi, I'm Irfan.
+            <br>
+            <em>
+              I make tech feel simpler.
+            </em>
+          </h2>
+          <div class="qualification">
+            <span aria-hidden="true">
+              ↗
+            </span>
+            <div>
+              <strong>
+                BSc Computer Science · First Class Honours
+              </strong>
+              <span>
+                Manchester Metropolitan University
+              </span>
+            </div>
+          </div>
+          <a class="text-link" href="MyCV.pdf">
+            View my CV (PDF) ↗
+          </a>
+        </div>
+        <div class="about-copy">
+          <p>
+            I'm a Manchester-based Computer Science graduate and IT professional. I've worked in frontline IT support at Manchester Metropolitan University, helping students and staff with everyday technology in a large, busy education environment.
+          </p>
+          <p>
+            From PCs, loan laptops and network printers to software, accounts and AV checks, that work involved investigating problems, documenting support tickets and knowing when to escalate. My Digital and Peer Guide work also helped me explain unfamiliar technology clearly.
+          </p>
+          <p>
+            That experience taught me that most people want someone who listens, understands the problem and explains what happens next. I bring the same approach to small businesses that need help with their websites and everyday IT.
+          </p>
+          <details class="technical-background">
+            <summary>
+              My technical background
+            </summary>
+            <p>
+              HTML, CSS and JavaScript for the web; Python, Java and C# for software and data tasks; SQL/MySQL, REST APIs, Flutter/Dart and Firebase. I also use Git, GitHub and Postman to manage and test my work.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="section process-section" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <p class="eyebrow">
+            HOW IT WORKS
+          </p>
+          <h2 id="process-title">
+            From “can you help?” to a clear plan.
+          </h2>
+          <ol class="process-grid">
+            <li>
+              <span class="step-number" aria-hidden="true">
+                01
+              </span>
+              <h3>
+                Tell me what you need
+              </h3>
+              <p>
+                Send me a message describing your website or IT problem. Everyday language is absolutely fine.
+              </p>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">
+                02
+              </span>
+              <h3>
+                I review it
+              </h3>
+              <p>
+                I'll ask any necessary questions, check whether I can help and explain the options.
+              </p>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">
+                03
+              </span>
+              <h3>
+                We agree the work
+              </h3>
+              <p>
+                We agree the scope, price and expected delivery before I start.
+              </p>
+            </li>
+            <li>
+              <span class="step-number" aria-hidden="true">
+                04
+              </span>
+              <h3>
+                I complete and hand over
+              </h3>
+              <p>
+                I complete the work, test it and explain anything you need to know.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section class="section container pricing-layout" aria-labelledby="pricing-title">
+        <div>
+          <p class="eyebrow">
+            NO GUESSWORK
+          </p>
+          <h2 id="pricing-title">
+            Simple, transparent pricing.
+          </h2>
+          <p>
+            Every business needs something a little different. Tell me what you have in mind and I'll give you a clear price before work begins.
+          </p>
+          <a class="button button-outline" href="#contact">
+            Request a Quote ↗
+          </a>
+        </div>
+        <dl class="pricing-list">
+          <div>
+            <dt>
+              Website fixes
+            </dt>
+            <dd>
+              Quoted based on the issue
+            </dd>
+          </div>
+          <div>
+            <dt>
+              Business websites
+            </dt>
+            <dd>
+              Fixed-price quote based on your requirements
+            </dd>
+          </div>
+          <div>
+            <dt>
+              IT support &amp; technical tasks
+            </dt>
+            <dd>
+              Scope and cost agreed before starting
+            </dd>
+          </div>
+          <div>
+            <dt>
+              Ongoing maintenance
+            </dt>
+            <dd>
+              Available when required, by agreement
+            </dd>
+          </div>
+        </dl>
+      </section>
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-layout">
+          <div>
+            <p class="eyebrow">
+              LET'S GET IT SORTED
+            </p>
+            <h2 id="contact-title">
+              Need help with your
+              <br>
+              <em>
+                website or IT?
+              </em>
+            </h2>
+            <p>
+              Tell me what you're trying to fix or build. You don't need to know the technical terminology — just describe the problem.
+            </p>
+            <a class="button button-light" href="mailto:irfantalukder7@gmail.com?subject=Website%20or%20IT%20enquiry">
+              Email Me for a Free Quote ↗
+            </a>
+            <a class="email-address" href="mailto:irfantalukder7@gmail.com">
+              irfantalukder7@gmail.com
+            </a>
+            <p class="contact-note">
+              Opens your email app. You can also copy the address above.
+            </p>
+          </div>
+          <aside class="enquiry-guide" aria-labelledby="enquiry-title">
+            <h3 id="enquiry-title">
+              A good place to start
+            </h3>
+            <p>
+              In your message, it helps to include:
+            </p>
+            <ul>
+              <li>
+                A little about your business
+              </li>
+              <li>
+                Your website link, if you have one
+              </li>
+              <li>
+                What you need help with
+              </li>
+              <li>
+                Any timing or budget you have in mind
+              </li>
+            </ul>
+            <p>
+              No technical brief needed.
+            </p>
+            <a class="text-link" href="https://www.linkedin.com/in/irfan-talukder">
+              Prefer LinkedIn? Find me here ↗
+            </a>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-layout">
+        <div>
+          <a class="footer-name" href="#home">
+            Irfan Talukder.
+          </a>
+          <p>
+            Independent web &amp; IT solutions.
+            <br>
+            Based in Manchester · Working across the UK.
+          </p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <a href="#services">
+            Services
+          </a>
+          <a href="#contact">
+            Contact
+          </a>
+          <a href="MyCV.pdf" download>
+            Download CV (PDF)
+          </a>
+          <a href="https://github.com/IrfanT05">
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/irfan-talukder">
+            LinkedIn
+          </a>
+        </nav>
+        <p class="copyright">
+          ©
+          <span id="year">
+            2026
+          </span>
+          Irfan Talukder
+        </p>
       </div>
-    </section>
-
-    <!-- CONTACT (cream) -->
-    <section id="contact" class="card fade-up">
-      <div class="inner">
-        <div class="section-head">
-          <h2>Contact</h2>
-        </div>
-        <div class="grid">
-          <div class="pane" style="background:#fff;border:1px solid var(--cream-border);border-radius:14px">
-            <h3 style="margin:0 0 12px 0;color:var(--text-dark)">Reach me</h3>
-
-            <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 13.065 0 6V4l12 7.065L24 4v2l-12 7.065z" />
-                <path d="M0 6l12 7.065L24 6v14H0z" />
-              </svg>
-              <a href="mailto:irfan@example.com" id="emailLink">irfantalukder7@gmail.com</a>
-            </p>
-
-            <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.84 2.83 1.31 3.52 1 .11-.79.42-1.31.76-1.61-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.31-.54-1.57.12-3.27 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.7.25 2.96.12 3.27.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.61-5.49 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z" />
-              </svg>
-              <a href="https://github.com/IrfanT05" target="_blank" rel="noopener">github.com/IrfanT05</a>
-            </p>
-
-            <p style="display:flex;align-items:center;gap:10px;color:var(--text-dark)">
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z" />
-              </svg>
-              <a href="https://www.linkedin.com/in/irfan-talukder" target="_blank"
-                rel="noopener">linkedin.com/in/irfan-talukder</a>
-            </p>
-          </div>
-
-          <div class="pane" style="background:#fff;border:1px solid var(--cream-border);border-radius:14px">
-            <h3 style="margin:0 0 12px 0;color:var(--text-dark)">Send a message</h3>
-            <form action="mailto:irfantalukder7@gmail.com" method="post" enctype="text/plain">
-              <label for="name" style="display:block;margin-bottom:6px;color:var(--text-dark)">Name:</label>
-              <input type="text" id="name" name="name" required
-                style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px" />
-              <label for="email" style="display:block;margin-bottom:6px;color:var(--text-dark)">Email:</label>
-              <input type="email" id="email" name="email" required
-                style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px" />
-              <label for="message" style="display:block;margin-bottom:6px;color:var(--text-dark)">Message:</label>
-              <textarea id="message" name="message" rows="4" required
-                style="width:100%;padding:8px;margin-bottom:12px;border:1px solid var(--cream-border);border-radius:6px"></textarea>
-              <button type="submit" class="btn gradient">Send</button>
-            </form>
-          </div>
-        </div>
-    </section>
-  </main>
-
-  <!-- FULL-WIDTH FOOTER -->
-  <footer>
-    <div class="foot-inner">© <span id="year"></span> Irfan Talukder. All Rights Reserved</div>
-  </footer>
-
-  <script>
-    // Project data (edit to your real links)
-    const PROJECTS = [
-      {
-        title: "MyDeen (Islamic App)",
-        period: "2024–2025",
-        summary: "Flutter app for prayer times, Quran reader, and Tasbih counter. Offline‑first with background notifications and location‑aware calculation methods.",
-        bullets: ["Flutter/Dart · Provider state mgmt", "REST integration (Aladhan/custom)", "Offline cache · Background scheduling",],
-        links: [{ label: "Repo", href: "https://github.com/IrfanT05/MyDeen_flutter" },], tags: ["Flutter", "REST"],
-      },
-      {
-        title: "Pizza Factory Game",
-        period: "2024–2025",
-        summary:
-          "A Java-based desktop simulation game where players manage a pizza factory — handling orders, ingredients, and production using OOP principles.",
-        bullets: [
-          "Java Swing GUI and event handling",
-          "OOP structure: inheritance, polymorphism, and interfaces",
-          "File I/O for order persistence",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/Pizza-Factory-Game" },
-
-        ],
-        tags: ["Java", "OOP", "GUI"],
-      },
-
-      {
-        title: "BookShop – Online Bookstore",
-        period: "2024",
-        summary:
-          "A responsive e-commerce website allowing users to browse, search, and purchase books online with clean UI and cart management.",
-        bullets: [
-          "Built with HTML, CSS, and JavaScript",
-          "Dynamic product listing and local storage for cart simulation",
-          "Responsive design for desktop and mobile",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/My-Bookstore" },
-          { label: "View Website", href: "https://irfant05.github.io/Bookshop/" },
-        ],
-        tags: ["HTML", "CSS", "JavaScript"],
-      },
-
-      {
-        title: "Room Finder – Engineering Building",
-        period: "2024–2025",
-        summary:
-          "Collaborative full-stack project to build a room-finding web app for Manchester Metropolitan University’s Engineering Building.",
-        bullets: [
-          "Full-stack web app using HTML, CSS, and JavaScript",
-          "Interactive room search and map navigation",
-          "Developed collaboratively using Git version control",
-        ],
-        links: [
-          { label: "Team Repo", href: "https://github.com/IrfanT05/MMU-RoomFinder" },
-          { label: "View Website", href: "https://irfant05.github.io/MMU-RoomFinder/" },
-        ],
-        tags: ["Team Project", "Web", "JavaScript"],
-      },
-
-      {
-        title: "Data Structures & Algorithms (C#)",
-        period: "2024",
-        summary:
-          "A collection of implemented data structures and algorithms in C#, exploring computational efficiency and OOP design.",
-        bullets: [
-          "Circular Queue, Linked List, and Binary Tree",
-          "Sorting and searching algorithms",
-          "Console-based testing and visual trace output",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/ADS2425PortfolioAssignment" },
-        ],
-        tags: ["C#", "DSA", "OOP"],
-      },
-
-      {
-        title: "StarKow – Greeting Card Web App",
-        period: "2025",
-        summary:
-          "A full-stack greeting card web app to create and send digital cards with customizable templates and carousel features.",
-        bullets: [
-          "Built with HTML, CSS, JavaScript",
-          "Dynamic carousel template editor",
-          "Local storage for saving user cards",
-        ],
-        links: [
-
-          { label: "Repo", href: "https://github.com/IrfanT05/StarKow-Project" },
-        ],
-        tags: ["HTML", "CSS", "JavaScript", "Full Stack"],
-      },
-
-      {
-        title: "iOS Calculator Clone",
-        period: "2024",
-        summary:
-          "A functional iOS-style calculator built in Kotlin with Android Studio, focusing on logic accuracy and polished UI.",
-        bullets: [
-          "Android Studio XML layouts",
-          "Kotlin logic for operator precedence and error handling",
-          "Material Design UI with adaptive themes",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/IOS-CalculatorClone" },
-        ],
-        tags: ["Kotlin", "Android", "UI/UX"],
-      },
-
-      {
-        title: "Adaptive Maths Quiz (Windows Forms)",
-        period: "2024",
-        summary:
-          "A C# Windows Forms quiz app that adapts question difficulty to the user’s performance, enhancing engagement and learning.",
-        bullets: [
-          "Dynamic question generation using random logic",
-          "Adaptive difficulty scaling",
-          "Score tracking and leaderboard view",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/Mathadox-NEA" },
-        ],
-        tags: ["C#", "Windows Forms", "Adaptive Learning"],
-      },
-      {
-        title: "This Portfolio Website itself",
-        period: "2025",
-        summary:
-          "A minimilastic portfolio website built with HTML, CSS, and JavaScript to showcase projects and skills effectively.",
-        bullets: [
-          "Responsive design principles",
-          "Interactive filtering and dynamic content rendering",
-          "Clean, modern UI/UX",
-        ],
-        links: [
-          { label: "Repo", href: "https://github.com/IrfanT05/MyPortfolio" },
-          { label: "View Website (This website)", href: "https://irfantalukder.com/" },
-        ],
-        tags: ["HTML", "CSS", "JavaScript", "Full Stack"],
-      },
-      {
-        title: "Pneumatic AI Data Integration Prototype",
-        period: "2025",
-        summary:
-          "Developed a supervised learning model to predict pneumonia diagnoses based on numerical measurements extracted from chest X-rays, supporting faster clinical decision-making in hospitals.",
-        bullets: [
-          "Cleaned and preprocessed CSV datasets containing chest X-ray features and confirmed diagnoses.",
-          "Implemented and compared multiple ML models (Logistic Regression, Decision Trees, Random Forests) for pneumonia classification.",
-          "Evaluated model performance using accuracy, precision, recall, and ROC-AUC metrics.",
-        ],
-        links: [
-          { label: "TBC", href: "#" },
-        ],
-        tags: ["AI/ML", "Python", "Supervised Learning", "Healthcare Data"],
-      },
-    ];
-
-    // Render Projects
-    const grid = document.getElementById('projectGrid');
-    const filters = document.querySelectorAll('.filter');
-
-    function cardTemplate(p) {
-      const tagHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
-      const bullets = p.bullets.map(b => `<li>${b}</li>`).join('');
-      const links = p.links.map(l => `<a class=\"link\" href=\"${l.href}\" target=\"_blank\" rel=\"noopener\">${l.label} ↗</a>`).join('');
-      return `
-        <article class="p-card fade-up" data-tags="${p.tags.join(',')}">
-          <div class="meta"><span>${p.period}</span><span>${p.tags[0]}</span></div>
-          <h3>${p.title}</h3>
-          <p class="muted">${p.summary}</p>
-          <ul style="margin:0 0 2px 18px;padding:0;color:var(--text-dark)">${bullets}</ul>
-          <div class="tags">${tagHTML}</div>
-          <div class="links">${links}</div>
-        </article>
-      `;
-    }
-
-    function render(filter) {
-      grid.innerHTML = PROJECTS
-        .filter(p => !filter || filter === 'all' || p.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())))
-        .map(cardTemplate)
-        .join('');
-    }
-
-    filters.forEach(btn => btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      render(btn.dataset.filter);
-    }));
-
-    render('all');
-
-    // Utilities
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('copyEmail')?.addEventListener('click', () => {
-      const email = document.getElementById('emailLink').textContent;
-      navigator.clipboard.writeText(email).then(() => { alert('Email copied to clipboard'); });
-    });
-    document.getElementById('downloadCV').addEventListener('click', (e) => {
-      e.preventDefault();
-      window.open('https://irfantalukder.com/MyCV.pdf', '_blank');
-    });
-
-    // --- Mobile nav toggle ---
-    const navToggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const downloadCVMobile = document.getElementById('downloadCVMobile');
-
-    function closeMenu() {
-      mobileMenu.setAttribute('hidden', '');
-      mobileMenu.dataset.open = 'false';
-      navToggle.setAttribute('aria-expanded', 'false');
-    }
-    function openMenu() {
-      mobileMenu.removeAttribute('hidden');
-      mobileMenu.dataset.open = 'true';
-      navToggle.setAttribute('aria-expanded', 'true');
-    }
-    navToggle?.addEventListener('click', () => {
-      const open = mobileMenu.dataset.open === 'true';
-      open ? closeMenu() : openMenu();
-    });
-    mobileMenu?.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeMenu);
-    });
-
-    // keep behaviour consistent if resizing back to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900) closeMenu();
-    });
-
-    // mobile CV button
-    downloadCVMobile?.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.open('https://irfantalukder.com/MyCV.pdf', '_blank');
-    });
-
-  </script>
-</body>
-
+    </footer>
+  </body>
 </html>
